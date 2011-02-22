@@ -3,7 +3,7 @@ Upstream-Name: webdis
 Source: <https://github.com/nicolasff/webdis/blob/master/COPYING
 
 Files: *
-Copyright: 2010-2011, Nicolas Favre-Felix
+Copyright: 2010-2011, Nicolas Favre-Felix <n.favrefelix@gmail.com>
 
 License: 2-clause BSD License
  Redistribution and use in source and binary forms, with or without modification,
