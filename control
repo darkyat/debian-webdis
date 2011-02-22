@@ -1,0 +1,29 @@
+Source: webdis
+Section: unknown
+Priority: extra
+Maintainer: Andriy Senkovych <jolly_roger@itblog.org.ua>
+Build-Depends: debhelper (>= 7.0.50~), libhiredis-dev (>= 0.9.2), libjansson-dev(>= 1.3), livevent-dev (>= 1.4.13)
+Standards-Version: 3.9.1
+Vcs-Git: git://github.com/jollyroger/debian-webdis.git
+Vcs-Browser: https://github.com/jollyroger/debian-webdis
+
+Package: webdis
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: simple web server providing an HTTP interface to Redis
+  Webdis is a simple web server providing HTTP interface to Redis. Some features include:
+  * Support for GET and POST requests.
+  * JSON output by default, optional JSONP parameter (?jsonp=myFunction).
+  * Raw Redis 2.0 protocol output with .raw suffix
+  * BSON support for compact responses and MongoDB compatibility.
+  * HTTP 1.1 pipelining (50,000 http requests per second on a desktop Linux machine.)
+  * Restricted commands by IP range (CIDR subnet + mask) or HTTP Basic Auth, returning 403 errors.
+  * Possible Redis authentication in the config file.
+  * Pub/Sub using Transfer-Encoding: chunked, works with JSONP as well. Webdis can be used as a Comet server.
+  * Custom Content-Type using a pre-defined file extension, or with ?type=some/thing.
+  * URL-encoded parameters for binary data or slashes.
+  * Logs, with a configurable verbosity.
+  * Cross-origin XHR, if compiled with libevent2 (for OPTIONS support).
+  * File upload with PUT, if compiled with libevent2 (for PUT support).
+  * With the JSON output, the return value of INFO is parsed and transformed into an object.
+
