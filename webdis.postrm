@@ -1,0 +1,33 @@
+#! /bin/sh
+
+set -e
+
+case "$1" in
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+        ;;
+    remove)
+        if [ -x "/etc/init.d/webdis" ]; then
+	    if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+                invoke-rc.d webdis stop || exit 0
+	    else
+                /etc/init.d/webdis stop || exit 0
+	    fi
+	fi
+        ;;
+    purge)
+        getent passwd webdis >/dev/null && \
+        if [ -x /usr/sbin/deluser ]; then
+            deluser --quiet --system webdis
+        fi
+        rm -rf /var/run/webdis
+        rm -rf /var/lib/webdis
+        ;;
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 1
+
+esac
+
+#DEBHELPER#
+
+exit 0

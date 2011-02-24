@@ -1,0 +1,18 @@
+--- a/webdis.json
++++ b/webdis.json
+@@ -7,7 +7,7 @@
+ 	"http_host":	"0.0.0.0",
+ 	"http_port":	7379,
+ 
+-	"daemonize":	false,
++	"daemonize":	true,
+ 
+ 	"acl": [
+ 		{
+@@ -21,5 +21,5 @@
+ 	],
+ 
+         "verbosity": 3,
+-        "logfile": "webdis.log"
++        "logfile": "/var/log/webdis/webdis.log"
+ }

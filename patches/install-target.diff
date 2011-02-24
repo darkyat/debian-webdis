@@ -1,0 +1,32 @@
+--- a/Makefile
++++ b/Makefile
+@@ -63,6 +63,14 @@
+ # lookup will be system-wide, we'll set it here, just in case
+ CFLAGS += -I$(HIREDIS_INCLUDE_DIR) -I$(JANSSON_INCLUDE_DIR)
+ 
++PREFIX ?= /usr/local
++CONFDIR ?= $(DESTDIR)/etc
++
++INSTALL_DIRS = $(DESTDIR) \
++			   $(DESTDIR)/$(PREFIX) \
++			   $(DESTDIR)/$(PREFIX)/bin \
++			   $(CONFDIR) \
++
+ all: $(OUT) Makefile
+ 
+ $(HIREDIS_STATIC_LIB) $(HIREDIS_DYNAMIC_LIB): Makefile hiredis/Makefile
+@@ -83,8 +91,14 @@
+ %.o: %.c $(JANSSON_EMBEDDED_HEADERS) Makefile
+ 	$(CC) -c $(CFLAGS) -o $@ $<
+ 
++$(INSTALL_DIRS):
++	mkdir -p $@
++
+ clean:
+ 	rm -f $(OBJS) $(OUT)
+ 	cd hiredis && $(MAKE) $@
+ 	cd jansson && $(MAKE) $@
+ 
++install: $(OUT) $(INSTALL_DIRS)
++	cp $(OUT) $(DESTDIR)/$(PREFIX)/bin
++	cp webdis.json $(CONFDIR)
