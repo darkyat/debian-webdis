@@ -9,7 +9,12 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-export PREFIX = /usr
+export PREFIX=/usr
+
+export USE_EMBEDDED_HIREDIS=false
+export USE_EMBEDDED_JANSSON=false
+export USE_DYNAMIC_HIREDIS=true
+export USE_DYNAMIC_JANSSON=true
 
 %:
 	dh $@ 

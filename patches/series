@@ -1,2 +1,4 @@
+json_load_file.diff
 fix-config.diff
+shared-libs.diff
 install-target.diff

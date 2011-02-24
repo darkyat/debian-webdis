@@ -25,7 +25,8 @@
  clean:
  	rm -f $(OBJS) $(OUT)
  	cd hiredis && $(MAKE) $@
- 	cd jansson && $(MAKE) $@
+-	cd jansson && $(MAKE) $@
++	#cd jansson && $(MAKE) $@
  
 +install: $(OUT) $(INSTALL_DIRS)
 +	cp $(OUT) $(DESTDIR)/$(PREFIX)/bin
