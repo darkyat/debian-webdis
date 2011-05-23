@@ -1,3 +1,9 @@
+webdis (0.1.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Andriy Senkovych <jolly_roger@itblog.org.ua>  Fri, 20 May 2011 13:17:36 +0300
+
 webdis (0.0.1-1) unstable; urgency=low
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>

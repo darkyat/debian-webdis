@@ -1,18 +1,19 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -1,23 +1,90 @@
+@@ -1,25 +1,91 @@
 +#!/usr/bin/make -f
  OUT=webdis
 -HIREDIS_OBJ=hiredis/hiredis.o hiredis/sds.o hiredis/net.o hiredis/async.o hiredis/dict.o
 -JANSSON_OBJ=jansson/src/dump.o jansson/src/error.o jansson/src/hashtable.o jansson/src/load.o jansson/src/strbuffer.o jansson/src/utf.o jansson/src/value.o jansson/src/variadic.o 
-+
  FORMAT_OBJS=formats/json.o formats/raw.o formats/common.o formats/custom-type.o formats/bson.o
--OBJS=webdis.o conf.o $(FORMAT_OBJS) cmd.o slog.o server.o $(HIREDIS_OBJ) $(JANSSON_OBJ) libb64/cencode.o acl.o md5/md5.o
-+OBJS = webdis.o conf.o $(FORMAT_OBJS) cmd.o slog.o server.o libb64/cencode.o acl.o md5/md5.o
+ HTTP_PARSER_OBJS=http-parser/http_parser.o
+-DEPS=$(FORMAT_OBJS) $(HIREDIS_OBJ) $(JANSSON_OBJ) $(HTTP_PARSER_OBJS)
++DEPS=$(FORMAT_OBJS) $(HTTP_PARSER_OBJS)
+ OBJS=webdis.o cmd.o worker.o slog.o server.o libb64/cencode.o acl.o md5/md5.o http.o client.o websocket.o pool.o conf.o $(DEPS)
  
--CFLAGS=-O3 -Wall -Wextra -I. -Ijansson/src
-+CFLAGS=-O3 -Wall -Wextra -I.
- LDFLAGS=-levent
+-CFLAGS=-O3 -Wall -Wextra -I. -Ijansson/src -Ihttp-parser
++CFLAGS=-O3 -Wall -Wextra -I. -Ihttp-parser
+ LDFLAGS=-levent -pthread
  
 +## Simple flags
 +
@@ -72,7 +73,6 @@
 +
  all: $(OUT) Makefile
  
--$(OUT): $(OBJS) Makefile
 +$(HIREDIS_STATIC_LIB) $(HIREDIS_DYNAMIC_LIB): Makefile hiredis/Makefile
 +	cd hiredis && $(MAKE) libhiredis.a libhiredis.so
 +
@@ -82,7 +82,7 @@
 +jansson/Makefile jansson/src/jansson.h: jansson/Makefile.am jansson/jansson.pc.in jansson/configure.ac jansson/src/jansson.h.in
 +	cd jansson && autoreconf -i && ./configure
 +
-+$(OUT): $(OBJS) $(LIBS) Makefile
+ $(OUT): $(OBJS) Makefile
  	$(CC) $(LDFLAGS) -o $(OUT) $(OBJS)
  
 -%.o: %.c %.h Makefile

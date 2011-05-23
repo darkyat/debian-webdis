@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -63,6 +63,14 @@
+@@ -64,6 +64,14 @@
  # lookup will be system-wide, we'll set it here, just in case
  CFLAGS += -I$(HIREDIS_INCLUDE_DIR) -I$(JANSSON_INCLUDE_DIR)
  
@@ -15,7 +15,7 @@
  all: $(OUT) Makefile
  
  $(HIREDIS_STATIC_LIB) $(HIREDIS_DYNAMIC_LIB): Makefile hiredis/Makefile
-@@ -83,8 +91,14 @@
+@@ -84,8 +92,14 @@
  %.o: %.c $(JANSSON_EMBEDDED_HEADERS) Makefile
  	$(CC) -c $(CFLAGS) -o $@ $<
  

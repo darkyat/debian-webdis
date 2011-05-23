@@ -1,4 +1,5 @@
-json_load_file.diff
-fix-config.diff
 shared-libs.diff
 install-target.diff
+json_load_file.diff
+fix-config.diff
+fix-dynamic-calls.diff
